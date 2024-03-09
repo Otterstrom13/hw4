@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   
   resources "entries"
   resources "places"
-  resources "sessions"
+  resources "sessions", only: [:new, :create, :destroy]
   resources "users"
 
-  get("/login", { :controller => "sessions", :action => "new" })
-  get("/logout", { :controller => "sessions", :action => "destroy" })
+  get "/login", to: "sessions#new", as: "login"
+  get "/logout", to: "sessions#destroy", as: "logout"
 
-  get("/", { :controller => "places", :action => "index" })
+  root to: "places#index"
 
 end

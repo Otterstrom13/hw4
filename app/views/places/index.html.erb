@@ -1,8 +1,8 @@
-<% if @user && @places %>
+<% if @user !=nil %>
   <h1>Your Places</h1>
 
   <ul>
-    <% @places.each do |place| %>
+    <% for place in @places %>
       <li><a href="/places/<%= place.id %>"><%= place.name %></a></li>
     <% end %>
   </ul>

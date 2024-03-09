@@ -1,16 +1,10 @@
 class PlacesController < ApplicationController
-before_action :require_login
-  
-def index
-  @user = current_user
-  if @user
-    @places = @user.places
-    puts "Places: #{@places.inspect}"
-  else
-    flash[:error] = "You must be logged in to access this page."
-    redirect_to login_path
+  #before_action :require_login
+
+  def index
+    @user = current_user
+    @places = Place.all
   end
-end
 
   def show
     @place = Place.find_by({ "id" => params["id"] })

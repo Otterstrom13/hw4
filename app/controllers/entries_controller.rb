@@ -2,18 +2,21 @@ class EntriesController < ApplicationController
 
   def new
   end
-
+  
   def create
-    @entry = Entry.new(entry_params)
-    @entry.save
-
-    redirect_to place_path(@entry.place_id)
-  end
-
-  private
-
-  def entry_params
-    params.permit(:title, :description, :occurred_on, :place_id, :image)
+    @user = User.find_by({ "id" => session["user_id"] })
+    if @user != nil
+      @entry = Entry.new
+      @entry["title"] = params["title"]
+      @entry["description"] = params["description"]
+      @entry["occurred_on"] = params["occurred_on"]
+      @entry.uploaded_image.attach(params["uploaded_image"])
+      @entry["user_id"] = @user["id"]
+      @entry.save
+    else
+      flash["notice"] = "Login first."
+    end
+    redirect_to "/places"
   end
 
 end

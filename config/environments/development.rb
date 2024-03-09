@@ -52,6 +52,8 @@ Rails.application.configure do
     generator.helper false
     generator.assets false
     generator.test_framework nil
+
+
   end
   
   config.hosts = nil
@@ -67,4 +69,5 @@ Rails.application.configure do
   
   # So we don't get the "Cannot render console" message in Gitpod
   config.web_console.whiny_requests = false
+  config.active_storage.service = :local
 end
