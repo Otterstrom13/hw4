@@ -3,12 +3,22 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new
-    @user["first_name"] = params["first_name"]
-    @user["last_name"] = params["last_name"]
-    @user["email"] = params["email"]
-    @user["password"] = params["password"]
-    @user.save
-    redirect_to "/"
+    @user = User.new(user_params)
+
+    if @user.save
+      flash[:notice] = "Thanks for signing up. Now login."
+      redirect_to "/login"
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def user_params
+    params.permit(:first_name, :last_name, :email, :password)
   end
 end
+
+#I attempted to do this following the method we used in class, but kept getting an error
+#So Chat GPT gave me an alternative way to do it
